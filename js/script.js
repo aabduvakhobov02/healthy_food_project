@@ -139,6 +139,8 @@ window.addEventListener("DOMContentLoaded", () => {
     }
   }
   //Menu Items
+  /* CREATING MENU CARDS WITH CLASS
+
 
   class MenuCard {
     constructor(src, alt, title, descr, price, parentSelector, ...classes) {
@@ -182,42 +184,62 @@ window.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  const div0 = new MenuCard(
-    "img/tabs/vegy.jpg",
-    "vegy",
-    'Меню "Фитнес"',
-    `Меню "Фитнес" - это новый подход к приготовлению блюд: больше
-    свежих овощей и фруктов. Продукт активных и здоровых людей. Это
-    абсолютно новый продукт с оптимальной ценой и высоким качеством!`,
-    2,
-    ".menu .container"
-  );
-  div0.render();
+  const getData = async (url) => {
+    const result = await fetch(url);
 
-  const div1 = new MenuCard(
-    "img/tabs/elite.jpg",
-    "elite",
-    "Меню “Премиум”",
-    `В меню “Премиум” мы используем не только красивый дизайн упаковки,
-    но и качественное исполнение блюд. Красная рыба, морепродукты,
-    фрукты - ресторанное меню без похода в ресторан!`,
-    7,
-    ".menu .container"
-  );
-  div1.render();
+    if (!result.ok) {
+      throw new Error(`Couldn't fetch ${url}, status code: ${result.status}`);
+    }
+    return await result.json();
+  };
 
-  const div2 = new MenuCard(
-    "img/tabs/post.jpg",
-    "post",
-    'Меню "Постное"',
-    `Меню “Постное” - это тщательный подбор ингредиентов: полное
-    отсутствие продуктов животного происхождения, молоко из миндаля,
-    овса, кокоса или гречки, правильное количество белков за счет тофу
-    и импортных вегетарианских стейков.`,
-    4,
-    ".menu .container"
-  );
-  div2.render();
+  getData("http://localhost:3000/menu").then((data) => {
+    data.forEach((obj) => {
+      new MenuCard(
+        obj.img,
+        obj.altimg,
+        obj.title,
+        obj.descr,
+        obj.price,
+        ".menu .container"
+      ).render();
+    });
+  });
+*/
+  // Making dynamic MenuCards without class
+  const getData = async (url) => {
+    const result = await fetch(url);
+
+    if (!result.ok) {
+      throw new Error(`Couldn't fetch ${url}, status code: ${result.status}`);
+    }
+    return await result.json();
+  };
+  getData("http://localhost:3000/menu").then((data) => createCard(data));
+
+  function createCard(data) {
+    data.forEach(({ img, altimg, title, descr, price }) => {
+      price *= 10600;
+      const element = document.createElement("div");
+      element.classList.add("menu__item");
+      element.innerHTML = `
+        <img src=${img} alt=${altimg} />
+        <h3 class="menu__item-subtitle">${title}</h3>
+        <div class="menu__item-descr">
+          ${descr}
+        </div>
+        <div class="menu__item-divider"></div>
+        <div class="menu__item-price">
+          <div class="menu__item-cost">Цена:</div>
+          <div class="menu__item-total">
+            <span>${price}</span> сум/день
+          </div>
+        </div>
+      `;
+
+      document.querySelector(".menu .container").append(element);
+    });
+  }
 
   //Forms
 
@@ -230,10 +252,22 @@ window.addEventListener("DOMContentLoaded", () => {
   };
 
   forms.forEach((item) => {
-    postData(item);
+    bindPostData(item);
   });
 
-  function postData(form) {
+  const postData = async (url, data) => {
+    const result = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: data,
+    });
+
+    return await result.json();
+  };
+
+  function bindPostData(form) {
     form.addEventListener("submit", (e) => {
       e.preventDefault();
 
@@ -247,19 +281,8 @@ window.addEventListener("DOMContentLoaded", () => {
 
       const formData = new FormData(form);
 
-      const object = {};
-      formData.forEach(function (value, key) {
-        object[key] = value;
-      });
-
-      fetch("server.php", {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json",
-        },
-        body: JSON.stringify(object),
-      })
-        .then((data) => data.text())
+      const json = JSON.stringify(Object.fromEntries(formData.entries()));
+      postData(" http://localhost:3000/requests", json)
         .then((data) => {
           console.log(data);
           showStatusModal(message.success);
@@ -325,6 +348,8 @@ window.addEventListener("DOMContentLoaded", () => {
       closeModal();
     }, 4000);
   }
+
+  fetch("http://localhost:3000/menu")
+    .then((data) => data.json())
+    .then((res) => console.log(res));
 });
-
-
