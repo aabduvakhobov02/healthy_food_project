@@ -245,6 +245,35 @@ window.addEventListener("DOMContentLoaded", () => {
       `;
       form.insertAdjacentElement("afterend", statusMessage);
 
+      const formData = new FormData(form);
+
+      const object = {};
+      formData.forEach(function (value, key) {
+        object[key] = value;
+      });
+
+      fetch("server.php", {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify(object),
+      })
+        .then((data) => data.text())
+        .then((data) => {
+          console.log(data);
+          showStatusModal(message.success);
+          statusMessage.remove();
+        })
+        .catch(() => {
+          showStatusModal(message.failure);
+        })
+        .finally(() => {
+          form.reset();
+        });
+
+      /* Posting with the use of XMLHttpRequest
+
       const request = new XMLHttpRequest();
       request.open("POST", "server.php");
       request.setRequestHeader("Content-type", "application/json");
@@ -268,7 +297,9 @@ window.addEventListener("DOMContentLoaded", () => {
         } else {
           showStatusModal(message.failure);
         }
-      });
+      }); 
+      
+      */
     });
   }
 
@@ -295,3 +326,5 @@ window.addEventListener("DOMContentLoaded", () => {
     }, 4000);
   }
 });
+
+
