@@ -1,4 +1,3 @@
-# healthy_food_project
 ## Instructions how to run the project:
 1. First of all you need to open the project file on command prompt and run: 
 
