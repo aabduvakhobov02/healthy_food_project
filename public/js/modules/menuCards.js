@@ -45,7 +45,9 @@ function menuCards() {
     }
   }
 
-  getData("http://localhost:3000/menu").then((data) => {
+  getData(
+    "https://healthy-food-js-default-rtdb.asia-southeast1.firebasedatabase.app/menu.json"
+  ).then((data) => {
     data.forEach((obj) => {
       new MenuCard(
         obj.img,

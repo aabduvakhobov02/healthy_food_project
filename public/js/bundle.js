@@ -1,10 +1,10 @@
 /******/ (function() { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./js/modules/calc.js":
-/*!****************************!*\
-  !*** ./js/modules/calc.js ***!
-  \****************************/
+/***/ "./public/js/modules/calc.js":
+/*!***********************************!*\
+  !*** ./public/js/modules/calc.js ***!
+  \***********************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -121,16 +121,16 @@ function calc() {
 
 /***/ }),
 
-/***/ "./js/modules/forms.js":
-/*!*****************************!*\
-  !*** ./js/modules/forms.js ***!
-  \*****************************/
+/***/ "./public/js/modules/forms.js":
+/*!************************************!*\
+  !*** ./public/js/modules/forms.js ***!
+  \************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _modal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modal */ "./js/modules/modal.js");
-/* harmony import */ var _services_services__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../services/services */ "./js/services/services.js");
+/* harmony import */ var _modal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modal */ "./public/js/modules/modal.js");
+/* harmony import */ var _services_services__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../services/services */ "./public/js/services/services.js");
 
 
 
@@ -158,7 +158,7 @@ function forms(formSelector, modalTimer) {
       form.insertAdjacentElement("afterend", statusMessage);
       const formData = new FormData(form);
       const json = JSON.stringify(Object.fromEntries(formData.entries()));
-      (0,_services_services__WEBPACK_IMPORTED_MODULE_1__.postData)(" http://localhost:3000/requests", json).then(data => {
+      (0,_services_services__WEBPACK_IMPORTED_MODULE_1__.postData)("https://healthy-food-js-default-rtdb.asia-southeast1.firebasedatabase.app/requests.json", json).then(data => {
         console.log(data);
         showStatusModal(message.success);
         statusMessage.remove();
@@ -220,15 +220,15 @@ function forms(formSelector, modalTimer) {
 
 /***/ }),
 
-/***/ "./js/modules/menuCards.js":
-/*!*********************************!*\
-  !*** ./js/modules/menuCards.js ***!
-  \*********************************/
+/***/ "./public/js/modules/menuCards.js":
+/*!****************************************!*\
+  !*** ./public/js/modules/menuCards.js ***!
+  \****************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _services_services__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../services/services */ "./js/services/services.js");
+/* harmony import */ var _services_services__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../services/services */ "./public/js/services/services.js");
 
 
 function menuCards() {
@@ -280,7 +280,7 @@ function menuCards() {
 
   }
 
-  (0,_services_services__WEBPACK_IMPORTED_MODULE_0__.getData)("http://localhost:3000/menu").then(data => {
+  (0,_services_services__WEBPACK_IMPORTED_MODULE_0__.getData)("https://healthy-food-js-default-rtdb.asia-southeast1.firebasedatabase.app/menu.json").then(data => {
     data.forEach(obj => {
       new MenuCard(obj.img, obj.altimg, obj.title, obj.descr, obj.price, ".menu .container").render();
     });
@@ -323,10 +323,10 @@ function menuCards() {
 
 /***/ }),
 
-/***/ "./js/modules/modal.js":
-/*!*****************************!*\
-  !*** ./js/modules/modal.js ***!
-  \*****************************/
+/***/ "./public/js/modules/modal.js":
+/*!************************************!*\
+  !*** ./public/js/modules/modal.js ***!
+  \************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -388,10 +388,10 @@ function modal(triggerSelector, modalSelector, modalTimer) {
 
 /***/ }),
 
-/***/ "./js/modules/slider.js":
-/*!******************************!*\
-  !*** ./js/modules/slider.js ***!
-  \******************************/
+/***/ "./public/js/modules/slider.js":
+/*!*************************************!*\
+  !*** ./public/js/modules/slider.js ***!
+  \*************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -531,10 +531,10 @@ function slider() {
 
 /***/ }),
 
-/***/ "./js/modules/tabs.js":
-/*!****************************!*\
-  !*** ./js/modules/tabs.js ***!
-  \****************************/
+/***/ "./public/js/modules/tabs.js":
+/*!***********************************!*\
+  !*** ./public/js/modules/tabs.js ***!
+  \***********************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -580,10 +580,10 @@ function tabs(tabsSelector, tabsContentSelector, tabsParentSelector, activeClass
 
 /***/ }),
 
-/***/ "./js/modules/timer.js":
-/*!*****************************!*\
-  !*** ./js/modules/timer.js ***!
-  \*****************************/
+/***/ "./public/js/modules/timer.js":
+/*!************************************!*\
+  !*** ./public/js/modules/timer.js ***!
+  \************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -642,10 +642,10 @@ function timer(id, deadline) {
 
 /***/ }),
 
-/***/ "./js/services/services.js":
-/*!*********************************!*\
-  !*** ./js/services/services.js ***!
-  \*********************************/
+/***/ "./public/js/services/services.js":
+/*!****************************************!*\
+  !*** ./public/js/services/services.js ***!
+  \****************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1965,19 +1965,19 @@ var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be in strict mode.
 !function() {
 "use strict";
-/*!**********************!*\
-  !*** ./js/script.js ***!
-  \**********************/
+/*!*****************************!*\
+  !*** ./public/js/script.js ***!
+  \*****************************/
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var nodelist_foreach_polyfill__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! nodelist-foreach-polyfill */ "./node_modules/nodelist-foreach-polyfill/index.js");
 /* harmony import */ var nodelist_foreach_polyfill__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(nodelist_foreach_polyfill__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _modules_tabs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/tabs */ "./js/modules/tabs.js");
-/* harmony import */ var _modules_modal__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/modal */ "./js/modules/modal.js");
-/* harmony import */ var _modules_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/forms */ "./js/modules/forms.js");
-/* harmony import */ var _modules_timer__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/timer */ "./js/modules/timer.js");
-/* harmony import */ var _modules_menuCards__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/menuCards */ "./js/modules/menuCards.js");
-/* harmony import */ var _modules_slider__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/slider */ "./js/modules/slider.js");
-/* harmony import */ var _modules_calc__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./modules/calc */ "./js/modules/calc.js");
+/* harmony import */ var _modules_tabs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/tabs */ "./public/js/modules/tabs.js");
+/* harmony import */ var _modules_modal__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/modal */ "./public/js/modules/modal.js");
+/* harmony import */ var _modules_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/forms */ "./public/js/modules/forms.js");
+/* harmony import */ var _modules_timer__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/timer */ "./public/js/modules/timer.js");
+/* harmony import */ var _modules_menuCards__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/menuCards */ "./public/js/modules/menuCards.js");
+/* harmony import */ var _modules_slider__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/slider */ "./public/js/modules/slider.js");
+/* harmony import */ var _modules_calc__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./modules/calc */ "./public/js/modules/calc.js");
 __webpack_require__(/*! es6-promise */ "./node_modules/es6-promise/dist/es6-promise.js").polyfill();
 
 

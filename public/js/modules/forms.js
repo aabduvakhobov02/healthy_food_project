@@ -31,7 +31,10 @@ function forms(formSelector, modalTimer) {
       const formData = new FormData(form);
 
       const json = JSON.stringify(Object.fromEntries(formData.entries()));
-      postData(" http://localhost:3000/requests", json)
+      postData(
+        "https://healthy-food-js-default-rtdb.asia-southeast1.firebasedatabase.app/requests.json",
+        json
+      )
         .then((data) => {
           console.log(data);
           showStatusModal(message.success);
